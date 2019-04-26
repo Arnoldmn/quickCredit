@@ -19,3 +19,6 @@ responsibilities.
 5. Admin view a specific loan application.
 5. Admin approve/reject loan application.
 6. Admin post loan repayment transaction in favour of a client.
+
+>> To view a live demo of this project go to https://mumbere7.github.io/quickCredit/
+>> Give your feed back to the admin in acse of any changes
