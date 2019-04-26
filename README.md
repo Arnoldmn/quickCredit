@@ -1,5 +1,5 @@
 # quickCredit
-# Overview
+## Overview
 Loan lending web application for andela bootcamp test 
 This application should allow user to borrow money from our services at an affordable fee that is competitive Users of the said applocation should be able to repay their loans a given period of time.
 
@@ -22,3 +22,10 @@ responsibilities.
 
 >> To view a live demo of this project go to https://mumbere7.github.io/quickCredit/
 >> Give your feed back to the admin in acse of any changes
+<<<<<<< HEAD
+=======
+
+## To have this project just use
+1. git clone [project-name]
+2. for a better view i recommend google chrome
+>>>>>>> 85baa567a588ac1307bfc180dad4634a4355a578
