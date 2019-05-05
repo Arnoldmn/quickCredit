@@ -1,4 +1,5 @@
 import moment from 'moment';
+
 class Users {
     //constructor class
     constructor() {
