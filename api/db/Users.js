@@ -1,74 +1,72 @@
-import moment from 'moment';
-import uuid from 'uuid';
+const credit = {
+    users: [
+        {
+            id: 1,
+            email: 'user@quickcredit',
+            firstname: 'John',
+            lastname: 'Doe',
+            password: '123456',
+            address: 'Kigali 7',
+            status: 'pending',
+            isAdmin: false,
+        },
+        {
+            id: 2,
+            email: 'user@quickcredit.com',
+            firstname: 'Red',
+            lastname: 'Amiir',
+            password: '123456',
+            address: 'Kigali 7',
+            status: 'pending',
+            isAdmin: true,
+        },
+        {
+            id: 1,
+            email: 'user2@quickcreditcom',
+            firstname: 'Jane',
+            lastname: 'Doe',
+            password: '123456',
+            address: 'Kigali 7',
+            status: 'pending',
+            isAdmin: false,
+        },
+    ],
 
-class Users {
-    // constructor class
-    constructor() {
-        this.users = [];
-    }
-    // users table
-    signup(data) {
-        const newUsers = {
-            id: uuid.v4,
-            email: data.email || '',
-            firstName: data.firstName || '',
-            lastName: data.lastName || '',
-            password: data.password.password || '',
-            address: data.address || '',
-            status: data.status || '',
-            isAdmin: data.isAdmin || true || false,
+    loans: [
+        {
+            id: 1,
+            email: 'user1@quickcredit.com',
+            createdOn: '12-05-2018',
+            status: 'pending',
+            repaid: false,
+            tenor: '3000',
+            amount: '20000',
+            paymentInstallment: '2000',
+            balance: '18000',
+            interest: '5%',
+        },
+        {
+            id: 1,
+            email: 'user2@quickcredit.com',
+            createdOn: '12-05-2018',
+            status: 'approved',
+            repaid: true,
+            tenor: '3000',
+            amount: '20000',
+            paymentInstallment: '2',
+            balance: '0',
+            interest: '5%',
+        },
+    ],
 
-        };
-        this.users.push(newUsers);
-        return newUsers;
-    }
-
-}
-
-class Loans {
-    constructor() {
-        this.loans = [];
-    }
-    // loans table
-    applyLoan(data) {
-        const newLoans = {
-            id: uuid.v4,
-            user: data.user || '',
-            createdOn: moment.now(),
-            repaid: data.repaid || true || false,
-            tenor: data.parseInt(tenor, 10),
-            amount: data.parseFloat(amount, 10.0),
-            interest: data.parseFloat((this.amount * this.tenor * 5) / 100, 10),
-            paymentInstallment: Math.floor(parseFloat((this.amount + this.interest) / this.tenor,
-                10.0)),
-            balance: parseFloat((this.amount + this.interest), 10.0),
-        };
-
-        this.loans.push(newLoans);
-        return newLoans;
-    }
-
-}
-
-class Repaid {
-    constructor() {
-        this.repaidLoan = [];
-    }
-    repaidLoans(data) {
-        const loanRepaid = {
-            id: parseInt(id, 10),
-            createdOn: moment.now(),
-            loanId: data.parseInt(loanId, 10),
-            amount: data.parseFloat(amount, 10.0),
-        };
-        this.loanRepaid.push(loanRepaid);
-        return loanRepaid;
-    }
-
-}
-
-module.export = {
-    Users,
-    Loans,
-    Repaid,
+    repayments: [
+        {
+            id: 1,
+            createdOn: '12-05-2018',
+            loanId: 1,
+            amount: '20000',
+        },
+    ],
 };
+
+export default credit;
