@@ -9,4 +9,7 @@ globals:
 parserOptions:
   ecmaVersion: 2018
   sourceType: module
-rules: {}
+rules: 
+  indent: 0
+  lines-between-class-members: 0
+  padded-blocks: 0
