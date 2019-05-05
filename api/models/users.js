@@ -1,38 +1,74 @@
-import userModel from '../db/Users';
-/**
- * 
- * @param {res} object
- * @param {req} object
- */
-let id = 1;
-let data;
+import moment from 'moment';
+import uuid from 'uuid';
 
-const Signup = (res, req) => {
-    if (!req.body.email && !req.body.firstName
-        && !req.body.lastName && !req.body.password
-        && !req.body.address && !req.body.status
-        && !req.body.isAdmin) {
-        return res.status(404).send({
-            message: 'All fields are required',
-        });
+class Users {
+    // constructor class
+    constructor() {
+        this.users = [];
     }
-    const signup = userModel.Signup(req.body);
-    return res.status(200).send(signup);
-},
-// sign user in if credentials are correct
+    // users table
+    signup(data) {
+        const newUsers = {
+            id: uuid.v4,
+            email: data.email || '',
+            firstName: data.firstName || '',
+            lastName: data.lastName || '',
+            password: data.password.password || '',
+            address: data.address || '',
+            status: data.status || '',
+            isAdmin: data.isAdmin || true || false,
 
-const Signin = (res, req) => {
-    if (!req.body.email && !req.body.password) {
-        return res.status(404).send({
-            message: 'Email or password invalid',
-        });
+        };
+        this.users.push(newUsers);
+        return newUsers;
     }
-    const signin = userModel.Signin(req.body);
-    return res.status(200).send(signin);
 
 }
 
-export {
-    Signup,
-    Signin
+class Loans {
+    constructor() {
+        this.loans = [];
+    }
+    // loans table
+    applyLoan(data) {
+        const newLoans = {
+            id: uuid.v4,
+            user: data.user || '',
+            createdOn: moment.now(),
+            repaid: data.repaid || true || false,
+            tenor: data.parseInt(tenor, 10),
+            amount: data.parseFloat(amount, 10.0),
+            interest: data.parseFloat((this.amount * this.tenor * 5) / 100, 10),
+            paymentInstallment: Math.floor(parseFloat((this.amount + this.interest) / this.tenor,
+                10.0)),
+            balance: parseFloat((this.amount + this.interest), 10.0),
+        };
+
+        this.loans.push(newLoans);
+        return newLoans;
+    }
+
 }
+
+class Repaid {
+    constructor() {
+        this.repaidLoan = [];
+    }
+    repaidLoans(data) {
+        const loanRepaid = {
+            id: uuid,
+            createdOn: moment.now(),
+            loanId: data.parseInt(loanId, 10),
+            amount: data.parseFloat(amount, 10.0),
+        };
+        this.loanRepaid.push(loanRepaid);
+        return loanRepaid;
+    }
+
+}
+
+module.export = {
+    Users,
+    Loans,
+    Repaid,
+};
