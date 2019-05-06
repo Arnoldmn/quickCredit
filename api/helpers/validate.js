@@ -1,7 +1,5 @@
 import Joi from 'joi';
 
-import { User, validate } from '../models/users';
-
 const validateSignup = (user) => {
     const schema = Joi.object().keys({
         email: Joi.string().regex(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,63}$/).email().trim(),
