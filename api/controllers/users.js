@@ -4,7 +4,7 @@ import userModel from '../db/Users';
  * @param {res} object
  * @param {req} object
  */
-let id = 1;
+const id = 1;
 let data;
 
 const Signup = (res, req) => {
@@ -16,6 +16,7 @@ const Signup = (res, req) => {
             message: 'All fields are required',
         });
     }
+
     const signup = userModel.Signup(req.body);
     return res.status(200).send(signup);
 };
