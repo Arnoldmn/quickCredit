@@ -1,0 +1,4 @@
+
+const applyLoan = (req, res) => {
+
+}
