@@ -18,7 +18,7 @@ const Signup = (res, req) => {
     }
     const signup = userModel.Signup(req.body);
     return res.status(200).send(signup);
-},
+};
 // sign user in if credentials are correct
 
 const Signin = (res, req) => {
@@ -30,9 +30,9 @@ const Signin = (res, req) => {
     const signin = userModel.Signin(req.body);
     return res.status(200).send(signin);
 
-}
+};
 
 export {
     Signup,
-    Signin
-}
+    Signin,
+};

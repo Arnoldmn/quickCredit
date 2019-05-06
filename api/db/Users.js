@@ -66,6 +66,12 @@ const credit = {
             loanId: 1,
             amount: '20000',
         },
+        {
+            id: 2,
+            createdOn: '12-05-2018',
+            loanId: 3,
+            amount: '20000',
+        },
     ],
 };
 

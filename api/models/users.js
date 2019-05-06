@@ -36,7 +36,9 @@ class Loans {
             user: data.user || '',
             createdOn: moment.now(),
             repaid: data.repaid || true || false,
+            // eslint-disable-next-line no-undef
             tenor: data.parseInt(tenor, 10),
+            // eslint-disable-next-line no-undef
             amount: data.parseFloat(amount, 10.0),
             interest: data.parseFloat((this.amount * this.tenor * 5) / 100, 10),
             paymentInstallment: Math.floor(parseFloat((this.amount + this.interest) / this.tenor,
@@ -50,7 +52,7 @@ class Loans {
 
 }
 
-class Repaid {
+class RepaidLoan {
     constructor() {
         this.repaidLoan = [];
     }
@@ -58,7 +60,9 @@ class Repaid {
         const loanRepaid = {
             id: uuid,
             createdOn: moment.now(),
+            // eslint-disable-next-line no-undef
             loanId: data.parseInt(loanId, 10),
+            // eslint-disable-next-line no-undef
             amount: data.parseFloat(amount, 10.0),
         };
         this.loanRepaid.push(loanRepaid);
@@ -70,5 +74,5 @@ class Repaid {
 module.export = {
     Users,
     Loans,
-    Repaid,
+    RepaidLoan,
 };
