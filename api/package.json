@@ -9,7 +9,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel server.js --out-dir build",
-    "dev-start": "babel-watch server.js"
+    "dev-start": "babel-watch server.js",
+    "start": "node_modules/.bin/nodemon server.js --exec babel-node --"
   },
   "repository": {
     "type": "git",
@@ -32,12 +33,12 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
+    "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.4",
+    "@babel/node": "^7.2.2",
     "@babel/preset-env": "^7.4.4",
     "@babel/register": "^7.4.4",
-    "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
-    "babel-register": "^6.26.0",
     "babel-watch": "^7.0.0",
     "chai": "^4.2.0",
     "eslint": "^5.16.0",

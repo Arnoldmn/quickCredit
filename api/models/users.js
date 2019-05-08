@@ -1,5 +1,6 @@
 import moment from 'moment';
 import uuid from 'uuid';
+import db from '../db/Users';
 
 class Users {
     // constructor class
@@ -9,7 +10,7 @@ class Users {
     // users table
     signup(data) {
         const newUsers = {
-            id: uuid.v4,
+            id: db.length + 1,
             email: data.email || '',
             firstName: data.firstName || '',
             lastName: data.lastName || '',
@@ -25,54 +26,6 @@ class Users {
 
 }
 
-class Loans {
-    constructor() {
-        this.loans = [];
-    }
-    // loans table
-    applyLoan(data) {
-        const newLoans = {
-            id: uuid.v4,
-            user: data.user || '',
-            createdOn: moment.now(),
-            repaid: data.repaid || true || false,
-            // eslint-disable-next-line no-undef
-            tenor: data.parseInt(tenor, 10),
-            // eslint-disable-next-line no-undef
-            amount: data.parseFloat(amount, 10.0),
-            interest: data.parseFloat((this.amount * this.tenor * 5) / 100, 10),
-            paymentInstallment: Math.floor(parseFloat((this.amount + this.interest) / this.tenor,
-                10.0)),
-            balance: parseFloat((this.amount + this.interest), 10.0),
-        };
 
-        this.loans.push(newLoans);
-        return newLoans;
-    }
-
-}
-
-class RepaidLoan {
-    constructor() {
-        this.repaidLoan = [];
-    }
-    repaidLoans(data) {
-        const loanRepaid = {
-            id: uuid,
-            createdOn: moment.now(),
-            // eslint-disable-next-line no-undef
-            loanId: data.parseInt(loanId, 10),
-            // eslint-disable-next-line no-undef
-            amount: data.parseFloat(amount, 10.0),
-        };
-        this.loanRepaid.push(loanRepaid);
-        return loanRepaid;
-    }
-
-}
-
-module.export = {
-    Users,
-    Loans,
-    RepaidLoan,
-};
+export default
+    Users;
