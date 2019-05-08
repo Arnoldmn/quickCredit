@@ -24,7 +24,7 @@ describe('User sign up', () => {
                 expect(res.body.erros).to.be.equal(0);
                 done();
             }).catch(err => {
-                console.log(err.message)
+                console.log(err.message);
             })
     })
 })
