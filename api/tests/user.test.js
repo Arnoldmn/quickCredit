@@ -18,13 +18,11 @@ describe('User sign up', () => {
          */
         chai.request(server).post('/signup')
             .send(newUser)
-            .then((res) => {
+            .end((res) => {
                 expect(res).to.have.status(201);
                 expect(res.body.message).to.be.equal('user created successfully');
                 expect(res.body.erros).to.be.equal(0);
                 done();
-            }).catch(err => {
-                console.log(err.message);
-            })
+            });
     })
 })

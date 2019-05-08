@@ -15,14 +15,12 @@ describe('User sign in', () => {
          */
         chai.request(server).post('/sgnin')
             .send(userLogin)
-            .then((res) => {
+            .end((res) => {
                 expect(res).to.have.status(200);
                 expect(res.body.token).to.exist;
-                expect(res.body, message).to.be.equal('Authentication successful');
+                expect(res.body.message).to.be.equal('Authentication successful');
                 expect(res.body.errors.length).to.be.equal(0);
                 done();
-            }).catch((err) => {
-                console.log(err.message)
-            })
+            });
     })
 })
