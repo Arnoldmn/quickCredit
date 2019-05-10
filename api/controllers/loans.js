@@ -36,7 +36,7 @@ class LoansController {
         const loanApplicant = users.find(_user => _user.userId === req.body.userId);
 
         const loan = {};
-        loanId = loans.id;
+        loan.loanId = loans.id;
         loan.email = email;
         loan.createdOn = new Date();
         loan.status = status === 'rejected' || 'approved';
@@ -45,7 +45,7 @@ class LoansController {
         loan.amount = parseFloat(amount);
         loan.installment = parseFloat(installment);
         loan.balance = parseFloat(balance);
-        loan.interest = parseFloat(interest(amount * 5) / 100);
+        loan.interest = (parseFloat(amount * 5) / 100);
 
         loan.push(loan);
 
@@ -155,8 +155,7 @@ class LoansController {
         }
 
         const loanRepaid = {};
-
-        loanRepaid.Id = loans.length + 1;
+        loanRepaid.id = loanRepayment.length + 1;
         loanRepaid.createdOn = new Date();
         loanRepaid.amount = repaidLoan.amount;
         loanRepaid.monthlyInstall = parseFloat(repaidLoan.monthlyInstall);
@@ -168,8 +167,8 @@ class LoansController {
         const resp = {
             status: 200,
             data: {
-                loanId: loanRepaid.length + 1,
-                email: userModel.email,
+                loanId: loans.id,
+                email: users.email,
                 amount: parseFloat(loanRepaid.amount),
                 installment: parseFloat(loanRepaid.installment),
                 balance: parseFloat(loanRepaid.balance),

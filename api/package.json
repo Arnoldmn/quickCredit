@@ -7,7 +7,7 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "mocha ./tests --require esm",
+    "test": "mocha ./tests/*.js --require esm",
     "build": "babel server.js --out-dir build",
     "dev-start": "babel-watch server.js",
     "start": "nodemon --exec babel-node server.js"
