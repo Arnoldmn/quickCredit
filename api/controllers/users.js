@@ -3,14 +3,13 @@
 /* eslint-disable no-shadow */
 /* eslint-disable class-methods-use-this */
 import jwt from 'jsonwebtoken';
-import config from '../config/config';
 import users from '../db/users';
 /**
  * 
  * @param {res} object
  * @param {req} object
  */
-class AccountsController {
+class UsersController {
     getAllUsers(req, res) {
         res.json({
             status: 200,
@@ -31,36 +30,21 @@ class AccountsController {
         const userExists = users.find(user => user.email === email);
 
         if (userExists) {
-            res.status(400).json({
+            res.json({
                 status: 400,
                 error: 'User already exists',
             });
         }
 
         const user = {};
-
-        // Increment user id for new user
         user.id = users.length + 1;
         user.email = email;
         user.firstname = firstname;
         user.lastname = lastname;
         user.password = password;
         user.address = address;
-        user.status = 'pending';
+        user.status = 'pending' || 'approved';
         user.isAdmin = true || false;
-
-        /* let role = user.status;
-
-        if (user.isAdmin === true) {
-            role = 'admin';
-        }
-
-
-        const token = jwt.sign({ id: user.id, role }, config.secret, {
-            expiresIn: 86400, // expires in 24 hours
-        }); */
-
-        // user.token = token;
         users.push(user);
         jwt.sign({
             userId: users.id,
@@ -68,7 +52,7 @@ class AccountsController {
             password: users.password,
         }, 'secretkey', (error, token) => {
             if (error) {
-                return res.status(401).json({
+                return res.json({
                     status: 401,
                     data: 'user already exits',
                 });
@@ -79,12 +63,12 @@ class AccountsController {
                 data: {
                     token: user.token,
                     id: user.id,
-                    email: user.email,
+                    // email: user.email,
                     firstname: user.firstname,
                     lastname: user.lastname,
                     password: user.password,
                     address: user.address,
-                    status: user.status,
+                    status: user.status === 'rejected' || 'approved',
                     isAdmin: user.isAdmin === true || false,
                 },
             };
@@ -96,33 +80,24 @@ class AccountsController {
     }
     signin(req, res) {
         const { email, password } = req.body;
-
-        // find user with provided credentials 
         const user = users.find(user => user.email === email
             && user.password === password);
         if (!user) {
-            res.status(401).json({
+            res.json({
                 status: 401,
                 token: null,
                 auth: false,
                 error: 'invalid username or password',
             });
         }
-        /* let role = user.isAdmin;
 
-        if (user.isAdmin === true) {
-            role = 'admin';
-        }
-        const token = jwt.sign({ id: users.id, role }, config.JWT_KEY, {
-            expiresIn: 86400, // expires in 24 hours
-        }); */
         jwt.sign({
             userId: users.id,
             email: users.email,
             password: users.password,
         }, 'secretkey', (error, token) => {
             if (error) {
-                return res.status(401).json({
+                return res.json({
                     status: 401,
                     data: 'user doesnt exit',
                 });
@@ -143,8 +118,8 @@ class AccountsController {
 
     }
     UserIsVerified(req, res) {
-        const singleUser = users.find(user => user.email === req.params.email);
-        if (!singleUser) {
+        const user = users.find(user => user.email === req.params.email);
+        if (!user) {
             return res.json({
                 status: 404,
                 error: 'User not found',
@@ -152,13 +127,13 @@ class AccountsController {
         }
         singleUser.status = req.body.status;
         const resp = {
-            email: singleUser.email,
-            firstname: singleUser.firstname,
-            lastname: singleUser.lastname,
-            address: singleUser.address,
-            status: singleUser.status,
+            email: users.email,
+            firstname: users.firstname,
+            lastname: users.lastname,
+            address: users.address,
+            status: users.status,
         };
-        return res.status(200).json({
+        return res.json({
             status: 200,
             data: resp,
         });
@@ -166,5 +141,5 @@ class AccountsController {
 
 }
 
-const accountsController = new AccountsController();
-export default accountsController;
+const usersController = new UsersController();
+export default usersController;

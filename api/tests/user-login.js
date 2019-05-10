@@ -1,33 +1,34 @@
 /* eslint-disable no-undef */
 import chaiHttp from 'chai-http';
 import chai from 'chai';
-import server from '../server';
+import app from '../server';
 
 chai.should();
 chai.use(chaiHttp);
 const { expect } = chai;
 
-describe('User sign in', () => {
-    it('Should return 200 for valid user credentials', (done) => {
-        /**
-         * User invalid sign in input
-         */
-        const userLogin = {
-            email: 'johndoe@quickcredit.com',
-            password: 'secret',
-        };
-        /**
-         * send request to the server
-         */
-        chai.request(server).post('/signin')
-            .send(userLogin)
-            .end((res) => {
-                expect(res).to.have.status(200);
-                // eslint-disable-next-line no-unused-expressions
-                expect(res.body.token).to.exist;
-                expect(res.body.message).to.be.equal('Authentication successful');
-                expect(res.body.errors.length).to.be.equal(0);
+describe('User registration', () => {
+
+    it('User signup endpoint should return 200', (done) => {
+        chai.request(app)
+            .post('/api/v1/auth/signup')
+            .send({
+                email: 'eukigali@gmail.com',
+                firstname: 'Kigali',
+                lastname: 'munya',
+                password: '123456',
+                address: 'Gisozi',
+            })
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.have.property('data');
+                res.body.data.should.be.a('object');
+                res.body.data.should.have.property('token');
+                res.body.data.should.have.property('id');
+                res.body.data.should.have.property('firstname');
+                res.body.data.should.have.property('lastname');
                 done();
             });
     });
+
 });

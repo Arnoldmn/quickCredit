@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import chaiHttp from 'chai-http';
 import chai from 'chai';
-import server from '../server';
+import app from '../server';
 
 chai.should();
 chai.use(chaiHttp);
@@ -22,12 +22,11 @@ describe('User sign up', () => {
         /**
          * send  user request
          */
-        chai.request(server).get('/signup')
+        chai.request(app)
+            .post('/api/v1/auth/signup')
             .send(newUser)
-            .end((res) => {
-                expect(res).to.have.status(201);
-                expect(res.body.message).to.be.equal('user created successfully');
-                expect(res.body.erros).to.be.equal(0);
+            .end((error, res) => {
+                expect(res).to.have.status(200);
                 done();
             });
     });

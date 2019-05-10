@@ -3,16 +3,15 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable import/no-named-as-default-member */
 /* eslint-disable class-methods-use-this */
-import userModel from '../db/users';
-import loanModel from '../db/loans';
+import users from '../db/users';
+import { loans, repayments } from '../db/loans';
 
 class LoansController {
+
     getAllLoans(req, res) {
-        const { loans } = loanModel;
-        res.status(200).json({
-            success: 'true',
-            message: 'All loans retrieved successfully.',
-            loans,
+        res.json({
+            status: 200,
+            data: loans,
         });
     }
 
@@ -23,38 +22,46 @@ class LoansController {
      * loan application 
      */
     applyLoan(req, res) {
-        const { users } = userModel;
+        const {
+            email,
+            createdOn,
+            status,
+            repaid,
+            tenor,
+            amount,
+            installment,
+            balance,
+            interest,
+        } = req.body;
         const loanApplicant = users.find(_user => _user.userId === req.body.userId);
 
         const loan = {};
-
-        loan.loanId = loanModel.loans.length + 1;
-        loan.loanApplicant = userModel.email;
+        loanId = loans.id;
+        loan.email = email;
         loan.createdOn = new Date();
-        loan.status = 'pending';
-        loan.repaid = loanModel.repaid || true || false;
-        loan.tenor = parseFloat(loanModel.tenor);
-        loan.amount = parseFloat(loanModel.amount);
-        loan.installment = parseFloat(loanModel.installment);
-        loan.balance = parseFloat(loanModel.balance);
-        loan.interest = (parseFloat(loanModel.balance) * 5) / 100;
+        loan.status = status === 'rejected' || 'approved';
+        loan.repaid = parseFloat(repaid);
+        loan.tenor = parseFloat(tenor);
+        loan.amount = parseFloat(amount);
+        loan.installment = parseFloat(installment);
+        loan.balance = parseFloat(balance);
+        loan.interest = parseFloat(interest(amount * 5) / 100);
 
-        loan.applicant = loanApplicant.loanId;
-        loanModel.loan.push(loan);
+        loan.push(loan);
 
         const resp = {
             status: 200,
             data: {
-                loanId: loan.loanId,
-                email: userModel.email,
+                loanId: loans.id,
+                email: loans.email,
                 createdOn: new Date(),
                 status: loanApplicant.status,
-                repaid: loan.repaid || true || false,
-                tenor: parseFloat(loan.tenor),
-                amount: parseFloat(loan.amount),
-                installment: parseFloat(loan.installment),
-                balance: parseFloat(loan.balance),
-                interest: parseFloat(loan.interest),
+                repaid: loans.repaid || true || false,
+                tenor: parseFloat(loans.tenor),
+                amount: parseFloat(loans.amount),
+                installment: parseFloat(loans.installment),
+                balance: parseFloat(loans.balance),
+                interest: parseFloat(loans.interest),
             },
         };
 
@@ -68,9 +75,18 @@ class LoansController {
      * specific loan 
      */
 
-    singleLoan(loanId) {
-        this.find(loan => loan.loanId === loanId);
-
+    singleLoan(req, res) {
+        const loanDetails = loans.find(loan => loan.id === parseInt(req.params.id, 10));
+        if (!loanDetails) {
+            return res.json({
+                status: 404,
+                error: 'Loan application not found',
+            });
+        }
+        res.json({
+            status: 200,
+            data: loanDetails,
+        });
     }
 
     /**
@@ -82,8 +98,8 @@ class LoansController {
 
     unSettledLoan(req, res) {
         const statusReq = req.query.status;
-        const repaidReq = !repaidReq(req.query.repaid);
-        const info = loanModel.find(loan => loan.status === statusReq
+        const repaidReq = req.query.repaid;
+        const info = loans.find(loan => loan.status === statusReq
             && loan.repaid === repaidReq);
         if (!info) {
             return res.json(404).send({
@@ -95,7 +111,7 @@ class LoansController {
         return res.json({
             status: 200,
             data: 'Unsettled loan info',
-            loanModel,
+            loans,
         });
     }
     /**
@@ -106,11 +122,11 @@ class LoansController {
      */
     fullySettledLoans(req, res) {
         const statusReq = req.query.status;
-        const repaidReq = !repaidReq(req.query.repaid);
-        const info = loanModel.find(loan => loan.status === statusReq
+        const repaidReq = req.query.statusReq;
+        const info = loans.find(loan => loan.status === statusReq
             && loan.repaid === repaidReq);
         if (!info) {
-            return res.json(404).send({
+            return res.json({
                 status: 404,
                 data: 'Loan not found',
             });
@@ -119,7 +135,7 @@ class LoansController {
         return res.json({
             status: 200,
             data: 'loan fully settled',
-            loanModel,
+            loans,
         });
     }
     /**
@@ -129,8 +145,7 @@ class LoansController {
      * Loan repayment endpoint
      */
     loanRepayment(res, req) {
-        const { loans } = loanModel;
-        const repaidLoan = loans.find(_loan => _loan.loanId === parseInt(req.params.loanId, 10));
+        const repaidLoan = loans.find(_loan => _loan.id === parseInt(req.params.id, 10));
 
         if (!repaidLoan) {
             return res.json({
@@ -162,7 +177,10 @@ class LoansController {
             },
         };
 
-        res.status(200).json(resp);
+        res.json(
+            resp
+        );
+
     }
     /**
          * 
@@ -171,10 +189,12 @@ class LoansController {
          * Loan history endpoint
          */
     loanHistory(req, res) {
-        const loanHistory = {};
+        const loanRepayment = [loans];
+
+        const loanHistory = [];
         loanRepayment.forEach((loan) => {
-            if (loan.loanId === parseInt(req.params.id, 10)) {
-                loanHistory.push(loan);
+            if (loans.loanId === parseInt(req.params.id, 10)) {
+                loanHistory.push(loans);
             }
         });
         res.json({
@@ -190,7 +210,6 @@ class LoansController {
          */
     loanStatus(req, res) {
         const { loanApplication } = req.params;
-        const { loans } = loanModel;
 
         let loanIndex = loans.find(loan => loan.loanApplication === loanApplication);
         if (loanIndex < 0) {
