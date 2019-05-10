@@ -1,4 +1,4 @@
-export const users = [
+const users = [
     {
         id: 1,
         email: 'user@quickcredit',
@@ -20,7 +20,7 @@ export const users = [
         isAdmin: true,
     },
     {
-        id: 1,
+        id: 3,
         email: 'user2@quickcreditcom',
         firstname: 'Jane',
         lastname: 'Doe',

@@ -1,4 +1,4 @@
-export const loans = [
+const loans = [
     {
         id: 1,
         email: 'user1@quickcredit.com',
@@ -25,7 +25,7 @@ export const loans = [
     },
 ];
 
-export const repayments = [
+const repayments = [
     {
         id: 1,
         createdOn: '12-05-2018',
@@ -39,3 +39,5 @@ export const repayments = [
         amount: '20000',
     },
 ];
+
+export default { loans, repayments };

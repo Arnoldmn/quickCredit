@@ -7,10 +7,10 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "",
+    "test": "mocha ./tests --require esm",
     "build": "babel server.js --out-dir build",
     "dev-start": "babel-watch server.js",
-    "start": "node_modules/.bin/nodemon server.js --exec babel-node --"
+    "start": "nodemon --exec babel-node server.js"
   },
   "repository": {
     "type": "git",
@@ -29,6 +29,7 @@
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.24.0",
+    "travis-ci": "^2.2.0",
     "uui": "^1.0.7",
     "uuid": "^3.3.2"
   },
@@ -38,13 +39,13 @@
     "@babel/node": "^7.2.2",
     "@babel/preset-env": "^7.4.4",
     "@babel/register": "^7.4.4",
-    "babel-preset-env": "^1.7.0",
-    "babel-watch": "^7.0.0",
+    "babel-register": "^6.26.0",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.17.2",
+    "esm": "^3.2.22",
     "mocha": "^6.1.4",
     "nodemon": "^1.19.0"
   }

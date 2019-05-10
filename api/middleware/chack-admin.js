@@ -1,8 +1,9 @@
 /* eslint-disable consistent-return */
-const jwt = require('jsonwebtoken');
-const isAdmin = require('./helper/checkAdmin');
+import jwt from 'jsonwebtoken';
 
-module.exports = (req, res, next) => {
+import isAdmin from './check-auth';
+
+exports = (req, res, next) => {
     try {
         const token = req.headers.authorization.split(' ')[1];
         const adminData = jwt.verify(token, 'superscretkey');
