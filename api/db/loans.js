@@ -39,3 +39,5 @@ export const repayments = [
         amount: '20000',
     },
 ];
+
+export default { loans, repayments };

@@ -30,4 +30,4 @@ describe('User sign up', () => {
                 done();
             });
     });
-});
+})
