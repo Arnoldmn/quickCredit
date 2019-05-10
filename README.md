@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/Mumbere7/quickCredit.svg?branch=develop)](https://travis-ci.com/Mumbere7/quickCredit)
 # quickCredit
 ## Overview
 Loan lending web application for andela bootcamp test 

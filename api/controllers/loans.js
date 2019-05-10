@@ -145,7 +145,7 @@ class LoansController {
      * Loan repayment endpoint
      */
     loanRepayment(res, req) {
-        const repaidLoan = loans.find(loan => loan.id === parseInt(req.params.id, 10));
+        const repaidLoan = repayments.find(loan => loan.id === parseInt(req.params.id, 10));
 
         if (!repaidLoan) {
             return res.json({
