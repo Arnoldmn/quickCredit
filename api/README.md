@@ -82,3 +82,5 @@ this endpoint is used to manipulate a loan request
 this endpoint is used to get all unpaid loans from the user
 ## GET /loans/repayment
 This endpoint is used to retrieve all loans that have either been fully [aid or not]
+
+>> this app can be found on heroku: 
