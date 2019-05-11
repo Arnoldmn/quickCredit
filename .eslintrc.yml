@@ -10,6 +10,7 @@ parserOptions:
   ecmaVersion: 2018
   sourceType: module
 rules: 
+<<<<<<< HEAD:api/.eslintrc.yml
   indent: 0
   lines-between-class-members: 0
   padded-blocks: 0
@@ -17,3 +18,13 @@ rules:
   eol-last: 0
   no-unused-vars: 0
   import/no-extraneous-dependencies: [2, { devDependencies: true }]
+||||||| merged common ancestors
+  indent: 0
+  lines-between-class-members: 0
+  padded-blocks: 0
+  no-trailing-spaces: 0
+  eol-last: 0
+  no-unused-vars: 0
+=======
+  indent: 4
+>>>>>>> af93fe7da9c5e6a9df4597233edd31d1f40f7316:.eslintrc.yml

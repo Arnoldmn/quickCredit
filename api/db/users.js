@@ -1,4 +1,11 @@
+<<<<<<< HEAD:api/db/users.js
 const users = [
+||||||| merged common ancestors
+export const users = [
+=======
+
+const users = [
+>>>>>>> af93fe7da9c5e6a9df4597233edd31d1f40f7316:api/db/users.js
     {
         id: 1,
         email: 'user@quickcredit',

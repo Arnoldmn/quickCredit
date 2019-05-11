@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 [![Build Status](https://travis-ci.com/Mumbere7/quickCredit.svg?branch=develop)](https://travis-ci.com/Mumbere7/quickCredit)
+||||||| merged common ancestors
+=======
+[![Build Status](https://travis-ci.com/Mumbere7/quickCredit.svg?branch=master)](https://travis-ci.com/Mumbere7/quickCredit)
+>>>>>>> af93fe7da9c5e6a9df4597233edd31d1f40f7316
 # quickCredit
 ## Overview
 Loan lending web application for andela bootcamp test 
