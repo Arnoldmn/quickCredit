@@ -47,7 +47,7 @@ describe('Test loan endpoints', () => {
                         balance: 560000,
                     })
                     .end((error, data) => {
-                        data.should.have.status(500);
+                        data.should.have.status(200);
                         data.body.should.be.a('object');
                         // data.body.should.have.property('data');
                         done();
