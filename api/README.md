@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.com/Mumbere7/quickCredit.svg?branch=master)](https://travis-ci.com/Mumbere7/quickCredit)
+[![Coverage Status](https://coveralls.io/repos/github/Mumbere7/quickCredit/badge.svg?branch=develop)](https://coveralls.io/github/Mumbere7/quickCredit?branch=develop)
 
 # QuikCredit
 
