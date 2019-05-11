@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "mocha ./tests/*.js --require esm",
-    "build": "npm run create && npm run clean && npm run compile && npm run copy",
+    "transpile": "babel api --out-dir dist",
     "dev-start": "babel-watch server.js",
     "start": "nodemon --exec babel-node server.js"
   },
