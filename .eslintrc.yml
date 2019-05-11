@@ -10,9 +10,4 @@ parserOptions:
   ecmaVersion: 2018
   sourceType: module
 rules: 
-  indent: 0
-  lines-between-class-members: 0
-  padded-blocks: 0
-  no-trailing-spaces: 0
-  eol-last: 0
-  no-unused-vars: 0
+  indent: tab

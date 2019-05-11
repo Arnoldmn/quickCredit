@@ -7,10 +7,10 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "mocha ./tests/*.js --require esm",
-    "transpile": "babel api --out-dir dist",
-    "dev-start": "babel-watch server.js",
-    "start": "nodemon --exec babel-node server.js"
+    "test": "mocha ./api/tests/*.js --require esm",
+    "build": "babel api --out-dir build",
+    "dev-start": "babel-watch ./api/server.js",
+    "start": "nodemon --exec babel-node ./api/server.js"
   },
   "repository": {
     "type": "git",
@@ -42,7 +42,6 @@
     "@babel/node": "^7.2.2",
     "@babel/preset-env": "^7.4.4",
     "@babel/register": "^7.4.4",
-    "babel-register": "^6.26.0",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "eslint": "^5.16.0",

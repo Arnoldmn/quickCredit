@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-shadow */
 /* eslint-disable no-undef */
 /* eslint-disable import/no-extraneous-dependencies */
@@ -202,5 +203,4 @@ describe('Test loan endpoints', () => {
                     });
             });
     });
-
 });
