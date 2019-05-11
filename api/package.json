@@ -30,6 +30,8 @@
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.24.0",
+    "swagger-ui": "^3.22.1",
+    "swagger-ui-express": "^4.0.2",
     "travis-ci": "^2.2.0",
     "uui": "^1.0.7",
     "uuid": "^3.3.2"
