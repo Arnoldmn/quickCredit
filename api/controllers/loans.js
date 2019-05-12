@@ -104,7 +104,7 @@ class LoansController {
       loan => loan.status === statusReq && loan.repaid === repaidReq
     );
     if (!info) {
-      return res.json(404).send({
+      return res.json({
         status: 404,
         data: "Loan already settled"
       });
