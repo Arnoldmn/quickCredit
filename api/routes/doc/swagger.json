@@ -2,22 +2,22 @@
   "openapi": "3.0.0",
   "info": {
     "title": "Quickcredit",
-    "description": "An online lending platform that provides short term soft loans to individuals",
+    "description": "This application should allow user to borrow money from our services at an affordable fee that is competitive Users of the said application should be able to repay their loans a given period of time.",
     "contact": {
-      "email": "mnzroger@gmail.com"
+      "email": "arnoldnzibuk@gmail.com"
     },
     "version": "1.0"
   },
   "servers": [
     {
-      "url": "http://localhost:1200/api/v1"
+      "url": "http://localhost:7000/api/v1"
     }
   ],
   "paths": {
     "/auth/signup": {
       "post": {
         "summary": "User account creation",
-        "description": "Create new user account by passing in (firstName, lastName, email, password), Content-Type should be (x-www-form-urlencoded)",
+        "description": "Create new account by entering (email, firstName, lastName, password), Content-Type should be (x-www-form-urlencoded)",
         "operationId": "Signup",
         "parameters": [
           {
@@ -45,7 +45,7 @@
         },
         "responses": {
           "200": {
-            "description": "User account created successfull",
+            "description": "User has been succesfully created",
             "headers": {
               "Connection": {
                 "style": "simple",
@@ -91,7 +91,7 @@
                     "schema": {
                       "type": "string"
                     },
-                    "example": "2019-04-12 12:23:11"
+                    "example": "2012-04-12 12:23:11"
                   }
                 }
               },
@@ -110,16 +110,18 @@
             },
             "content": {
               "application/json": {
-                "schema": {},
+                "schema": {
+                  "$ref": "#/components/schemas/signupResponse"
+                },
                 "example": {
                   "status": 201,
                   "data": {
                     "id": 1,
                     "token": "df7gd8gd5dhdd9d7f6as",
-                    "firstName": "Roger",
-                    "lastName": "Manzi",
-                    "email": "mnzroger@gmail.com",
-                    "password": "abc@123",
+                    "firstName": "John",
+                    "lastName": "Doe",
+                    "email": "admin@gmail.com",
+                    "password": "john.doe",
                     "status": "unverified",
                     "isAdmin": false,
                     "createdOn": "2019-05-12"
@@ -134,8 +136,8 @@
     },
     "/auth/signin": {
       "post": {
-        "summary": "User Signin",
-        "description": "Sign in with valid credentials into the request signupBody, Content-Type should be (x-www-form-urlencoded).",
+        "summary": "User login/signin ",
+        "description": "A user will login by prividing their email and password, Content-Type should be (x-www-form-urlencoded).",
         "operationId": "Signin",
         "parameters": [
           {
@@ -250,15 +252,17 @@
             },
             "content": {
               "application/json": {
-                "schema": {},
+                "schema": {
+                  "$ref": "#/components/schemas/signinResponse"
+                },
                 "example": {
                   "status": 200,
                   "data": {
                     "id": 1,
                     "token": "Kcsf87dfD243Werkrs",
-                    "firstName": "Roger",
-                    "lastName": "Manzi",
-                    "email": "mnzroger@gmail.com",
+                    "firstName": "John",
+                    "lastName": "Doe",
+                    "email": "doejohn@gmail.com",
                     "password": "123@abc",
                     "status": "unverified",
                     "isAdmin": false,
@@ -274,9 +278,9 @@
     },
     "/loans": {
       "get": {
-        "summary": "Get loan applications",
-        "description": "Get all loan applications",
-        "operationId": "GetLoanApplications",
+        "summary": "Retrieve loans",
+        "description": "Retrieve all loans application",
+        "operationId": "getAllLoans",
         "parameters": [],
         "responses": {
           "200": {
@@ -344,13 +348,15 @@
             },
             "content": {
               "application/json": {
-                "schema": {},
+                "schema": {
+                  "$ref": "#/components/schemas/getAllLoans"
+                },
                 "example": {
                   "status": 200,
                   "data": [
                     {
                       "id": 1,
-                      "user": "manziroger@quickcredit.com",
+                      "user": "john.doe@gmail.com",
                       "createdOn": "2019-04-11",
                       "status": "pending",
                       "repaid": false,
@@ -369,9 +375,9 @@
         "deprecated": false
       },
       "post": {
-        "summary": "Creating a loan application",
-        "description": "Create loan application, user(email) is obtained from the authorization header value(token) by decodeing the header value. Pass Tenor(Interger <= 12) and Loan amount(Float <= Loan Type maximum amount)",
-        "operationId": "CreateLoanApplication",
+        "summary": "Apply for loan",
+        "description": "Apply for a loan, the user email is captured in order to identify.)",
+        "operationId": "loanApplication",
         "parameters": [
           {
             "name": "Content-Type",
@@ -461,21 +467,23 @@
             },
             "content": {
               "application/json": {
-                "schema": {},
+                "schema": {
+                  "$ref": "#/components/schemas/loanApplyData"
+                },
                 "example": {
                   "status": 201,
                   "Created": true,
                   "data": {
                     "id": 1,
-                    "user": "manziroger@gmail.com",
+                    "user": "doe.john@gmail.com",
                     "createdOn": "Mon, 29 Apr 2019 14:45:53 GMT",
                     "status": "pending",
                     "tenor": 6,
-                    "amount": 1200,
-                    "interest": 60,
+                    "amount": 3000,
+                    "interest": 0.5,
                     "repaid": false,
-                    "paymentInstallment": 210,
-                    "balance": 1260
+                    "paymentInstallment": 1000,
+                    "balance": 2000
                   }
                 }
               }
@@ -487,9 +495,9 @@
     },
     "/loans/1": {
       "get": {
-        "summary": "Retrieve specific loan application",
-        "description": "Get Loan application by ID passing it as a parameter in the URL",
-        "operationId": "GetSpecificLoanApplication",
+        "summary": "Retrieve single loan",
+        "description": "Get loan based on Id",
+        "operationId": "singleLoan",
         "parameters": [],
         "responses": {
           "200": {
@@ -581,12 +589,14 @@
             },
             "content": {
               "application/json": {
-                "schema": {},
+                "schema": {
+                  "$ref": "#/components/schemas/loans{:id}"
+                },
                 "example": {
                   "status": 201,
                   "data": {
                     "id": 1,
-                    "user": "manziroger@quickcredit.com",
+                    "user": "john.doe@gmail.com",
                     "createdOn": "2019-04-11",
                     "status": "pending",
                     "repaid": false,
@@ -604,8 +614,8 @@
         "deprecated": false
       },
       "patch": {
-        "summary": "Verify or reject loan",
-        "description": "verifys a loan, put the verify status into the request signupBody.\nNB: Request signupBody must be an encoded URL search param forexample: new URLSearchParam({ 'status': 'verified' }).",
+        "summary": "Verify loan",
+        "description": "verifys a loan, add verify status in signup satus.({ 'status': 'verified' }).",
         "operationId": "VerifyALoan",
         "parameters": [
           {
@@ -624,7 +634,7 @@
           "content": {
             "application/x-www-form-urlencoded": {
               "schema": {
-                "$ref": "#/components/schemas/approveLoanBody"
+                "$ref": "#/components/schemas/loanRepayment"
               }
             }
           },
@@ -696,7 +706,9 @@
             },
             "content": {
               "application/json": {
-                "schema": {},
+                "schema": {
+                  "$ref": "#/components/schemas/loanRepayment:{email}"
+                },
                 "example": {
                   "status": 200,
                   "message": "approved"
@@ -708,10 +720,10 @@
         "deprecated": false
       }
     },
-    "/users/manziroger@gmail.com/verify": {
+    "/users/{:email}/verify": {
       "patch": {
         "summary": "Verify user",
-        "description": "Verify user by email ID, pasing it as a parameter in the URL",
+        "description": "Verify user by email, entering as a parameter in the URL",
         "operationId": "VerifyAUser",
         "parameters": [
           {
@@ -802,7 +814,9 @@
             },
             "content": {
               "application/json": {
-                "schema": {},
+                "schema": {
+                  "$ref": "#/components/schemas/verifyUser"
+                },
                 "example": {
                   "status": 202,
                   "message": "verified"
@@ -818,7 +832,7 @@
       "get": {
         "summary": "Retrieve specific loan application",
         "description": "Get Loan Repayment data by Id",
-        "operationId": "GetASpecificLoanRepayment",
+        "operationId": "getspecloan",
         "parameters": [],
         "responses": {
           "200": {
@@ -886,12 +900,14 @@
             },
             "content": {
               "application/json": {
-                "schema": {},
+                "schema": {
+                  "$ref": "#/components/schemas/retrieveSingleLoan"
+                },
                 "example": {
                   "status": 200,
                   "data": {
                     "id": 1,
-                    "user": "manziroger@quickcredit.com",
+                    "user": "johndoe@gmail.com",
                     "createdOn": "2019-04-11",
                     "status": "pending",
                     "repaid": false,
@@ -909,9 +925,9 @@
         "deprecated": false
       },
       "post": {
-        "summary": "Post loan repayment",
-        "description": "Post loan repayment by passing loan ID as a URL param.\nNB. ADMIN can use same endpoint to make a loan repayment transaction in favor of a user,  by passing in email ID of a user in the URL as param",
-        "operationId": "PostLoanRepayment",
+        "summary": "loan repayment",
+        "description": "Post loan repayment by entering lian id.",
+        "operationId": "",
         "parameters": [
           {
             "name": "Content-Type",
@@ -929,7 +945,7 @@
           "content": {
             "application/x-www-form-urlencoded": {
               "schema": {
-                "$ref": "#/components/schemas/postLoanRepaymentTransaction"
+                "$ref": "#/components/schemas/repiadLoan"
               }
             }
           },
@@ -1013,7 +1029,9 @@
             },
             "content": {
               "application/json": {
-                "schema": {},
+                "schema": {
+                  "$ref": "#/components/schemas/postLoanRepayment"
+                },
                 "example": {
                   "status": 201,
                   "Created": true,
@@ -1037,9 +1055,9 @@
     },
     "/users": {
       "get": {
-        "summary": "Retrieve all users",
-        "description": "Retrieves all users stored in the database",
-        "operationId": "GetAllUsers",
+        "summary": "Retrieve users",
+        "description": "Retrieves all stored accounts/users",
+        "operationId": "getAllUsers",
         "parameters": [],
         "responses": {
           "200": {
@@ -1107,7 +1125,9 @@
             },
             "content": {
               "application/json": {
-                "schema": {},
+                "schema": {
+                  "$ref": "#/components/schemas/retrieveUsers"
+                },
                 "example": {
                   "status": 200,
                   "data": [
@@ -1116,8 +1136,8 @@
                       "token": "fsgd7gdhdhg9ffds6d",
                       "firstName": "Roger",
                       "lastName": "Manzi",
-                      "email": "manziroger@gmail.com",
-                      "password": "123@abc",
+                      "email": "johndoe@gmail.com",
+                      "password": "doe.john",
                       "status": "verified",
                       "isAdmin": false,
                       "createdOn": "Sat, 11 May 2019 09:59:49 GMT"
@@ -1143,16 +1163,18 @@
             "type": "integer",
             "format": "int32"
           },
-          "data": {}
+          "data": {
+            "$ref": "#/components/schemas/signupData"
+          }
         },
         "example": {
           "status": 201,
           "data": {
             "id": 1,
-            "firstName": "Roger",
-            "lastName": "Manzi",
-            "email": "manziroger@gmail.com",
-            "password": "abc@123",
+            "firstName": "John",
+            "lastName": "Doe",
+            "email": "doejohn@gmail.com",
+            "password": "john.doe",
             "status": "unverified",
             "isAdmin": false,
             "createdOn": "Sat, 11 May 2019 09:59:49 GMT"
@@ -1160,7 +1182,7 @@
         }
       },
       "signupResponseData": {
-        "title": "signupResponseData",
+        "title": "signupData",
         "required": [
           "id",
           "firstName",
@@ -1209,20 +1231,51 @@
             "type": "integer",
             "format": "int32"
           },
-          "data": {}
+          "data": {
+            "$ref": "#/components/schemas/signupData"
+          }
         },
         "example": {
           "status": 200,
           "data": {
             "id": 1,
             "token": "dhfs8gdgd6d9scx0xz6sd",
-            "firstName": "Roger",
-            "lastName": "Manzi",
-            "email": "manziroger@gmail.com",
-            "password": "123@abc",
+            "firstName": "John",
+            "lastName": "Doe",
+            "email": "doejohn@gmail.com",
+            "password": "john.doe",
             "status": "unverified",
             "isAdmin": false,
             "createdOn": "Sat, 11 May 2019 09:59:49 GMT"
+          }
+        }
+      },
+      "loanApplication": {
+        "title": "loanApplication",
+        "required": ["data", "status"],
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "data": {
+            "$ref": "#/components/schemas/loanApplicationData"
+          }
+        },
+        "example": {
+          "status": 201,
+          "data": {
+            "id": 1,
+            "user": "doe.john@gmail.com",
+            "status": "pending",
+            "tenor": 6,
+            "amount": 2000,
+            "interest": 0.5,
+            "repaid": false,
+            "paymentInstallment": 500,
+            "balance": 1500,
+            "createdOn": "Mon, 29 Apr 2019 14:45:53 GMT"
           }
         }
       },
@@ -1280,8 +1333,8 @@
           }
         }
       },
-      "retrieveLoanApplications": {
-        "title": "retrieveLoanApplications",
+      "LoanApplications": {
+        "title": "LoanApplications",
         "required": ["data", "status"],
         "type": "object",
         "properties": {
@@ -1292,7 +1345,7 @@
           "data": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/loanApplicationResponseData"
+              "$ref": "#/components/schemas/loanApplicationDetails"
             }
           }
         },
@@ -1301,21 +1354,21 @@
           "data": [
             {
               "id": 1,
-              "user": "manziroger@gmail.com",
+              "user": "doe.john@gmail.com",
               "status": "pending",
-              "tenor": 6,
-              "amount": 1200,
-              "interest": 60,
+              "tenor": 4,
+              "amount": 4000,
+              "interest": 0.5,
               "repaid": false,
-              "paymentInstallment": 210,
-              "balance": 1260,
+              "paymentInstallment": 1000,
+              "balance": 4000,
               "createdOn": "Mon, 29 Apr 2019 14:45:53 GMT"
             }
           ]
         }
       },
       "retrieveLoanApplicationsResponse": {
-        "title": "retrieveLoanApplicationsResponse",
+        "title": "retrieveLoanApplication",
         "required": ["data", "status"],
         "type": "object",
         "properties": {
@@ -1324,7 +1377,7 @@
             "format": "int32"
           },
           "data": {
-            "$ref": "#/components/schemas/loanApplicationResponseDataData"
+            "$ref": "#/components/schemas/loanApplyResponse"
           }
         },
         "example": {
@@ -1334,11 +1387,11 @@
             "user": "manziroger@gmail.com",
             "status": "pending",
             "tenor": 6,
-            "amount": 1200,
-            "interest": 60,
+            "amount": 4000,
+            "interest": 0.5,
             "repaid": false,
-            "paymentInstallment": 210,
-            "balance": 1260,
+            "paymentInstallment": 400,
+            "balance": 3600,
             "createdOn": "Mon, 29 Apr 2019 14:45:53 GMT"
           }
         }
@@ -1379,8 +1432,8 @@
           "message": "approved"
         }
       },
-      "postLoanRepaymentTransactionResponse": {
-        "title": "postLoanRepaymentTransactionResponse",
+      "postLoanRepayment": {
+        "title": "postLoanRepayment",
         "required": ["Created", "data", "status"],
         "type": "object",
         "properties": {
@@ -1392,7 +1445,7 @@
             "type": "string"
           },
           "data": {
-            "$ref": "#/components/schemas/loanRepayTransactionResponseData"
+            "$ref": "#/components/schemas/loanRepayData"
           }
         },
         "example": {
@@ -1402,15 +1455,15 @@
             "id": 1,
             "loanId": 1,
             "createdOn": "Mon, 29 Apr 2019 15:04:10 GMT",
-            "amount": 1200,
-            "monthlyInstallment": 210,
-            "paidAmount": 210,
-            "balance": 2700
+            "amount": 4000,
+            "monthlyInstallment": 500,
+            "paidAmount": 700,
+            "balance": 3300
           }
         }
       },
-      "loanRepayTransactionResponse": {
-        "title": "loanRepayTransactionResponse",
+      "loanRepayTransact": {
+        "title": "loanRepayTransact",
         "required": [
           "amount",
           "balance",
@@ -1451,8 +1504,8 @@
           }
         }
       },
-      "retrieveSpecificLoanResponse": {
-        "title": "retrieveSpecificLoanResponse",
+      "retrieveSpecificLoan": {
+        "title": "retrieveSpecificLoan",
         "required": ["data", "status"],
         "type": "object",
         "properties": {
@@ -1461,7 +1514,7 @@
             "format": "int32"
           },
           "data": {
-            "$ref": "#/components/schemas/loanRepayTransactionResponseData"
+            "$ref": "#/components/schemas/loanRepayData"
           }
         },
         "example": {
@@ -1471,15 +1524,15 @@
             "user": 1,
             "loanId": 1,
             "createdOn": "Mon, 29 Apr 2019 15:04:10 GMT",
-            "amount": 1200,
+            "amount": 4000,
             "monthlyInstallment": 210,
-            "paidAmount": 210,
-            "balance": 2700
+            "paidAmount": 1000,
+            "balance": 3000
           }
         }
       },
-      "retrieveApprovedAndRepaidResponse": {
-        "title": "retrieveApprovedAndRepaidResponse",
+      "approvedAndRepaidResponse": {
+        "title": "approvedAndRepaidResponse",
         "required": ["data", "status"],
         "type": "object",
         "properties": {
@@ -1490,7 +1543,7 @@
           "data": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/loanApplicationResponseData"
+              "$ref": "#/components/schemas/loanApplicationResponse"
             }
           }
         },
@@ -1499,21 +1552,21 @@
           "data": [
             {
               "id": 1,
-              "user": "manziroger@gmail.com",
+              "user": "doe.john@gmail.com",
               "status": "approved",
-              "tenor": 6,
-              "amount": 1200,
-              "interest": 60,
+              "tenor": 2,
+              "amount": 4000,
+              "interest": 0.5,
               "repaid": true,
-              "paymentInstallment": 210,
+              "paymentInstallment": 2000,
               "balance": 0,
               "createdOn": "Mon, 29 Apr 2019 14:45:53 GMT"
             }
           ]
         }
       },
-      "retrieveApprovedAndNotRepaidResponse": {
-        "title": "retrieveApprovedAndNotRepaidResponse",
+      "ApprovedAndNotRepaidResponse": {
+        "title": "ApprovedAndNotRepaid",
         "required": ["data", "status"],
         "type": "object",
         "properties": {
@@ -1524,7 +1577,7 @@
           "data": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/retrieveApprovedAndNotRepaidResponseData"
+              "$ref": "#/components/schemas/ApprovedAndNotRepaid"
             }
           }
         },
@@ -1533,7 +1586,7 @@
           "data": [
             {
               "id": 1,
-              "user": "manziroger@gmail.com",
+              "user": "doe.john@gmail.com",
               "status": "approved",
               "tenor": 6,
               "amount": 1200,
@@ -1545,8 +1598,8 @@
           ]
         }
       },
-      "retrieveApprovedAndNotRepaidResponse": {
-        "title": "retrieveApprovedAndNotRepaidResponse",
+      "retrieveApprovedAndNotRepaid": {
+        "title": "retrieveApprovedAndNotRepaid",
         "required": [
           "amount",
           "createdOn",
@@ -1567,7 +1620,7 @@
           },
           "user": {
             "type": "string",
-            "example": "manziroger@gmail.com"
+            "example": "doe.john@gmail.com"
           },
           "createdOn": {
             "type": "string",
@@ -1585,12 +1638,12 @@
           "amount": {
             "type": "integer",
             "format": "int32",
-            "example": 1200
+            "example": 4000
           },
           "interest": {
             "type": "integer",
             "format": "int32",
-            "example": 60
+            "example": 0.5
           },
           "repaid": {
             "type": "boolean",
@@ -1599,12 +1652,12 @@
           "paymentInstallment": {
             "type": "integer",
             "format": "int32",
-            "example": 210
+            "example": 2000
           }
         }
       },
-      "retrieveAllUsersResponse": {
-        "title": "retrieveAllUsersResponse",
+      "AllUsersResponse": {
+        "title": "AllUsersResponse",
         "required": ["data", "status"],
         "type": "object",
         "properties": {
@@ -1615,7 +1668,7 @@
           "data": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/signupResponseData"
+              "$ref": "#/components/schemas/signupResponse"
             }
           }
         },
@@ -1625,10 +1678,10 @@
             {
               "id": 1,
               "token": "adhs78gdg3css4sfsgf",
-              "firstName": "Roger",
-              "lastName": "Manzi",
-              "email": "manziroger@gmail.com",
-              "password": "abc@123",
+              "firstName": "Doe",
+              "lastName": "John",
+              "email": "doe.johon@gmail.com",
+              "password": "doe.john",
               "status": "verified",
               "isAdmin": false,
               "createdOn": "Sat, 11 May 2019 09:59:49 GMT"
@@ -1642,19 +1695,19 @@
         "properties": {
           "firstName": {
             "type": "string",
-            "example": "manzi"
+            "example": "John"
           },
           "lastName": {
             "type": "string",
-            "example": "roger"
+            "example": "Doe"
           },
           "email": {
             "type": "string",
-            "example": "example@gmail.com"
+            "example": "doe.john@gmail.com"
           },
           "password": {
             "type": "string",
-            "example": "kigali"
+            "example": "Kigali 79"
           }
         }
       },
@@ -1664,11 +1717,11 @@
         "properties": {
           "email": {
             "type": "string",
-            "example": "mnzroger@gmail.com"
+            "example": "john.doe@gmail.com"
           },
           "password": {
             "type": "string",
-            "example": "abc@123"
+            "example": "doe.john"
           }
         }
       },
@@ -1696,13 +1749,13 @@
           }
         }
       },
-      "postLoanRepaymentTransaction": {
+      "postLoanRepaymentTransact": {
         "required": ["amount"],
         "type": "object",
         "properties": {
           "amount": {
             "type": "string",
-            "example": "1200"
+            "example": "3400"
           }
         }
       }

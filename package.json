@@ -37,7 +37,8 @@
     "swagger-ui-express": "^4.0.2",
     "travis-ci": "^2.2.0",
     "uui": "^1.0.7",
-    "uuid": "^3.3.2"
+    "uuid": "^3.3.2",
+    "yamljs": "^0.3.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",
