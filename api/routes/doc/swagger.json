@@ -1,1764 +1,340 @@
 {
-  "openapi": "3.0.0",
+  "swagger": "2.0",
   "info": {
-    "title": "Quickcredit",
-    "description": "This application should allow user to borrow money from our services at an affordable fee that is competitive Users of the said application should be able to repay their loans a given period of time.",
-    "contact": {
-      "email": "arnoldnzibuk@gmail.com"
-    },
-    "version": "1.0"
+    "version": "1.0",
+    "title": "quickCredit",
+    "description": "# Introduction\nThis application should allow user to borrow money from our services at an affordable fee that is competitive Users of the said applocation should be able to repay their loans a given period of time.\n\n# Overview\nLoan lending web application for andela bootcamp test \nThis application should allow user to borrow money from our services at an affordable fee that is competitive Users of the said applocation should be able to repay their loans a given period of time.\n\n\n# Authentication\nWhat is the preferred way of using the API?\n\n# Error Codes\n400\n401\n403\n404\n500\n\n\n# Rate limit\nIs there a limit to the number of requests an user can send? No",
+    "contact": {}
   },
-  "servers": [
-    {
-      "url": "http://localhost:7000/api/v1"
-    }
+  "host": "localhost:7000",
+  "basePath": "/api/v1",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
   ],
   "paths": {
-    "/auth/signup": {
-      "post": {
-        "summary": "User account creation",
-        "description": "Create new account by entering (email, firstName, lastName, password), Content-Type should be (x-www-form-urlencoded)",
-        "operationId": "Signup",
-        "parameters": [
-          {
-            "name": "Content-Type",
-            "in": "header",
-            "required": true,
-            "style": "simple",
-            "explode": false,
-            "schema": {
-              "$ref": "#/components/schemas/signupBody",
-              "type": "string",
-              "example": "application/x-www-form-urlencoded"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "$ref": "#/components/schemas/signupBody"
-              }
-            }
-          },
-          "required": false
-        },
-        "responses": {
-          "200": {
-            "description": "User has been succesfully created",
-            "headers": {
-              "Connection": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "keep-alive"
-                  }
-                }
-              },
-              "Content-Length": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": 508
-                  }
-                }
-              },
-              "Content-Type": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "application/json; charset=utf-8"
-                  }
-                }
-              },
-              "date": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "2012-04-12 12:23:11"
-                  }
-                }
-              },
-              "x-powered-by": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "Express"
-                  }
-                }
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/signupResponse"
-                },
-                "example": {
-                  "status": 201,
-                  "data": {
-                    "id": 1,
-                    "token": "df7gd8gd5dhdd9d7f6as",
-                    "firstName": "John",
-                    "lastName": "Doe",
-                    "email": "admin@gmail.com",
-                    "password": "john.doe",
-                    "status": "unverified",
-                    "isAdmin": false,
-                    "createdOn": "2019-05-12"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/auth/signin": {
-      "post": {
-        "summary": "User login/signin ",
-        "description": "A user will login by prividing their email and password, Content-Type should be (x-www-form-urlencoded).",
-        "operationId": "Signin",
-        "parameters": [
-          {
-            "name": "Content-Type",
-            "in": "header",
-            "required": true,
-            "style": "simple",
-            "explode": false,
-            "schema": {
-              "type": "string",
-              "example": "application/x-www-form-urlencoded"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "$ref": "#/components/schemas/signinBody"
-              }
-            }
-          },
-          "required": false
-        },
-        "responses": {
-          "200": {
-            "headers": {
-              "access-control-allow-origin": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "*"
-                  }
-                }
-              },
-              "Connection": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "keep-alive"
-                  }
-                }
-              },
-              "Content-Length": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": 72
-                  }
-                }
-              },
-              "Content-Type": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "application/json; charset=utf-8"
-                  }
-                }
-              },
-              "date": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "Sat, 11 May 2019 09:59:49 GMT"
-                  }
-                }
-              },
-              "etag": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "W/'48-3LmcpBT06+HMmIoM3mOFCcoGhtU'"
-                  }
-                }
-              },
-              "x-powered-by": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "Express"
-                  }
-                }
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/signinResponse"
-                },
-                "example": {
-                  "status": 200,
-                  "data": {
-                    "id": 1,
-                    "token": "Kcsf87dfD243Werkrs",
-                    "firstName": "John",
-                    "lastName": "Doe",
-                    "email": "doejohn@gmail.com",
-                    "password": "123@abc",
-                    "status": "unverified",
-                    "isAdmin": false,
-                    "createdOn": "2019-02-12"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "deprecated": false
-      }
-    },
     "/loans": {
       "get": {
-        "summary": "Retrieve loans",
-        "description": "Retrieve all loans application",
-        "operationId": "getAllLoans",
+        "description": "All loans application",
+        "summary": "localhost:7000/api/v1/loans",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "LoansGet",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
         "parameters": [],
         "responses": {
           "200": {
-            "headers": {
-              "Connection": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "keep-alive"
-                  }
-                }
-              },
-              "Content-Length": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": 450
-                  }
-                }
-              },
-              "Content-Type": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "application/json; charset=utf-8"
-                  }
-                }
-              },
-              "date": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "Sat, 11 May 2019 09:59:49 GMT"
-                  }
-                }
-              },
-              "x-powered-by": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "Express"
-                  }
-                }
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/getAllLoans"
-                },
-                "example": {
-                  "status": 200,
-                  "data": [
-                    {
-                      "id": 1,
-                      "user": "john.doe@gmail.com",
-                      "createdOn": "2019-04-11",
-                      "status": "pending",
-                      "repaid": false,
-                      "tenor": 6,
-                      "amount": 1200,
-                      "paymentInstallment": 210,
-                      "balance": 1050,
-                      "Interest": 60
-                    }
-                  ]
-                }
-              }
-            }
-          }
-        },
-        "deprecated": false
-      },
-      "post": {
-        "summary": "Apply for loan",
-        "description": "Apply for a loan, the user email is captured in order to identify.)",
-        "operationId": "loanApplication",
-        "parameters": [
-          {
-            "name": "Content-Type",
-            "in": "header",
-            "required": true,
-            "style": "simple",
-            "explode": false,
+            "description": "",
             "schema": {
-              "type": "string",
-              "example": "application/x-www-form-urlencoded"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "$ref": "#/components/schemas/loanApplicationBody"
-              }
-            }
-          },
-          "required": false
-        },
-        "responses": {
-          "201": {
-            "headers": {
-              "Connection": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "keep-alive"
-                  }
-                }
-              },
-              "Content-Length": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": 267
-                  }
-                }
-              },
-              "Content-Type": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "application/json; charset=utf-8"
-                  }
-                }
-              },
-              "date": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "Mon, 29 Apr 2019 14:45:53 GMT"
-                  }
-                }
-              },
-              "x-powered-by": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "Express"
-                  }
-                }
-              }
+              "type": "object"
             },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/loanApplyData"
-                },
-                "example": {
-                  "status": 201,
-                  "Created": true,
-                  "data": {
-                    "id": 1,
-                    "user": "doe.john@gmail.com",
-                    "createdOn": "Mon, 29 Apr 2019 14:45:53 GMT",
-                    "status": "pending",
-                    "tenor": 6,
-                    "amount": 3000,
-                    "interest": 0.5,
-                    "repaid": false,
-                    "paymentInstallment": 1000,
-                    "balance": 2000
-                  }
-                }
-              }
-            }
+            "headers": {}
           }
-        },
-        "deprecated": false
+        }
       }
     },
-    "/loans/1": {
+    "/loans:id": {
       "get": {
-        "summary": "Retrieve single loan",
-        "description": "Get loan based on Id",
-        "operationId": "singleLoan",
+        "description": "One loan should be displayed base on id",
+        "summary": "localhost:7000/api/v1/loans:id",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "LoansIdGet",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
         "parameters": [],
         "responses": {
           "200": {
-            "headers": {
-              "access-control-allow-origin": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "*"
-                  }
-                }
-              },
-              "Connection": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "keep-alive"
-                  }
-                }
-              },
-              "Content-Length": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": 250
-                  }
-                }
-              },
-              "Content-Type": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "application/json; charset=utf-8"
-                  }
-                }
-              },
-              "date": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "Mon, 29 Apr 2019 14:57:29 GMT"
-                  }
-                }
-              },
-              "etag": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "W/\"fa-tJjfMPMMwcgzydCbx7OWVy+auso\""
-                  }
-                }
-              },
-              "x-powered-by": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "Express"
-                  }
-                }
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/loans{:id}"
-                },
-                "example": {
-                  "status": 201,
-                  "data": {
-                    "id": 1,
-                    "user": "john.doe@gmail.com",
-                    "createdOn": "2019-04-11",
-                    "status": "pending",
-                    "repaid": false,
-                    "tenor": 6,
-                    "amount": 1200,
-                    "paymentInstallment": 210,
-                    "balance": 1050,
-                    "Interest": 60
-                  }
-                }
-              }
-            }
-          }
-        },
-        "deprecated": false
-      },
-      "patch": {
-        "summary": "Verify loan",
-        "description": "verifys a loan, add verify status in signup satus.({ 'status': 'verified' }).",
-        "operationId": "VerifyALoan",
-        "parameters": [
-          {
-            "name": "Content-Type",
-            "in": "header",
-            "required": true,
-            "style": "simple",
-            "explode": false,
+            "description": "",
             "schema": {
-              "type": "string",
-              "example": "application/x-www-form-urlencoded"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "$ref": "#/components/schemas/loanRepayment"
-              }
-            }
-          },
-          "required": false
-        },
-        "responses": {
-          "200": {
-            "headers": {
-              "Connection": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "keep-alive"
-                  }
-                }
-              },
-              "Content-Length": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": 35
-                  }
-                }
-              },
-              "Content-Type": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "application/json; charset=utf-8"
-                  }
-                }
-              },
-              "date": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "Mon, 29 Apr 2019 15:00:30 GMT"
-                  }
-                }
-              },
-              "x-powered-by": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "Express"
-                  }
-                }
-              }
+              "type": "object"
             },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/loanRepayment:{email}"
-                },
-                "example": {
-                  "status": 200,
-                  "message": "approved"
-                }
-              }
-            }
+            "headers": {}
           }
-        },
-        "deprecated": false
+        }
       }
     },
-    "/users/{:email}/verify": {
-      "patch": {
-        "summary": "Verify user",
-        "description": "Verify user by email, entering as a parameter in the URL",
-        "operationId": "VerifyAUser",
-        "parameters": [
-          {
-            "name": "Content-Type",
-            "in": "header",
-            "required": true,
-            "style": "simple",
-            "explode": false,
-            "schema": {
-              "type": "string",
-              "example": "application/x-www-form-urlencoded"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "$ref": "#/components/schemas/verifyUserBody"
-              }
-            }
-          },
-          "required": false
-        },
-        "responses": {
-          "202": {
-            "headers": {
-              "Connection": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "keep-alive"
-                  }
-                }
-              },
-              "Content-Length": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": 35
-                  }
-                }
-              },
-              "Content-Type": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "application/json; charset=utf-8"
-                  }
-                }
-              },
-              "date": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "Mon, 29 Apr 2019 14:59:08 GMT"
-                  }
-                }
-              },
-              "x-powered-by": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "Express"
-                  }
-                }
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/verifyUser"
-                },
-                "example": {
-                  "status": 202,
-                  "message": "verified"
-                }
-              }
-            }
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/loans/1/repayments": {
+    "/unpaid/loans": {
       "get": {
-        "summary": "Retrieve specific loan application",
-        "description": "Get Loan Repayment data by Id",
-        "operationId": "getspecloan",
+        "description": "All unpaid loans should be seen by admin",
+        "summary": "localhost:7000/api/v1/unpaid/loans",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "UnpaidLoansGet",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
         "parameters": [],
         "responses": {
           "200": {
-            "headers": {
-              "Connection": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "keep-alive"
-                  }
-                }
-              },
-              "Content-Length": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": 186
-                  }
-                }
-              },
-              "Content-Type": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "application/json; charset=utf-8"
-                  }
-                }
-              },
-              "date": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "Mon, 29 Apr 2019 15:09:15 GMT"
-                  }
-                }
-              },
-              "x-powered-by": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "Express"
-                  }
-                }
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/retrieveSingleLoan"
-                },
-                "example": {
-                  "status": 200,
-                  "data": {
-                    "id": 1,
-                    "user": "johndoe@gmail.com",
-                    "createdOn": "2019-04-11",
-                    "status": "pending",
-                    "repaid": false,
-                    "tenor": 6,
-                    "amount": 1200,
-                    "paymentInstallment": 210,
-                    "balance": 1050,
-                    "Interest": 60
-                  }
-                }
-              }
-            }
-          }
-        },
-        "deprecated": false
-      },
-      "post": {
-        "summary": "loan repayment",
-        "description": "Post loan repayment by entering lian id.",
-        "operationId": "",
-        "parameters": [
-          {
-            "name": "Content-Type",
-            "in": "header",
-            "required": true,
-            "style": "simple",
-            "explode": false,
+            "description": "",
             "schema": {
-              "type": "string",
-              "example": "application/x-www-form-urlencoded"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "$ref": "#/components/schemas/repiadLoan"
-              }
-            }
-          },
-          "required": false
-        },
-        "responses": {
-          "201": {
-            "headers": {
-              "Connection": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "keep-alive"
-                  }
-                }
-              },
-              "Content-Length": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": 203
-                  }
-                }
-              },
-              "Content-Type": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "application/json; charset=utf-8"
-                  }
-                }
-              },
-              "date": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "Mon, 29 Apr 2019 15:04:10 GMT"
-                  }
-                }
-              },
-              "etag": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "W/\"cb-ULixrawbCz1H8QOmI43E7Efm50I\""
-                  }
-                }
-              },
-              "x-powered-by": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "Express"
-                  }
-                }
-              }
+              "type": "object"
             },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/postLoanRepayment"
-                },
-                "example": {
-                  "status": 201,
-                  "Created": true,
-                  "data": {
-                    "id": 1,
-                    "loanId": 1,
-                    "amount": 1200,
-                    "createdOn": "2019-04-11 12:45:11",
-                    "interest": 60,
-                    "monthlyInstallement": 210,
-                    "paidAmount": 210,
-                    "balance": 1050
-                  }
-                }
-              }
-            }
+            "headers": {}
           }
-        },
-        "deprecated": false
+        }
+      }
+    },
+    "/repaid/loans": {
+      "get": {
+        "description": "All repaid loans to be displayed ",
+        "summary": "localhost:7000/api/v1/repaid/loans",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "RepaidLoansGet",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object"
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/loans/repayment": {
+      "get": {
+        "description": "Display all repaid loans",
+        "summary": "localhost:7000/api/v1/loans/repayment",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "LoansRepaymentGet",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object"
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/loans/apply": {
+      "post": {
+        "description": "A user can apply for a loan",
+        "summary": "localhost:7000/api/v1/loans/apply",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "LoansApplyPost",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object"
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/:id/loans": {
+      "post": {
+        "description": "Admin will post loan repayment in favor of a user",
+        "summary": "localhost:7000/api/v1/:id/loans",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "IdLoansPost",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object"
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/loans/:id": {
+      "put": {
+        "description": "Admin will updat loan repayment",
+        "summary": "localhost:7000/api/v1/loans/:id",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "LoansIdPut",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object"
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/loans/:": {
+      "patch": {
+        "description": "Admin will patch a single loan ",
+        "summary": "localhost:7000/api/v1/loans/:",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "LoansPatch",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object"
+            },
+            "headers": {}
+          }
+        }
       }
     },
     "/users": {
       "get": {
-        "summary": "Retrieve users",
-        "description": "Retrieves all stored accounts/users",
-        "operationId": "getAllUsers",
+        "description": "All created users of the application",
+        "summary": "localhost:7000/api/v1/users",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "UsersGet",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
         "parameters": [],
         "responses": {
           "200": {
-            "headers": {
-              "Connection": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "keep-alive"
-                  }
-                }
-              },
-              "Content-Length": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": 308
-                  }
-                }
-              },
-              "Content-Type": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "application/json; charset=utf-8"
-                  }
-                }
-              },
-              "date": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "Mon, 29 Apr 2019 15:17:04 GMT"
-                  }
-                }
-              },
-              "x-powered-by": {
-                "style": "simple",
-                "explode": false,
-                "content": {
-                  "text/plain": {
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "Express"
-                  }
-                }
-              }
+            "description": "",
+            "schema": {
+              "type": "object"
             },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/retrieveUsers"
-                },
-                "example": {
-                  "status": 200,
-                  "data": [
-                    {
-                      "id": 1,
-                      "token": "fsgd7gdhdhg9ffds6d",
-                      "firstName": "Roger",
-                      "lastName": "Manzi",
-                      "email": "johndoe@gmail.com",
-                      "password": "doe.john",
-                      "status": "verified",
-                      "isAdmin": false,
-                      "createdOn": "Sat, 11 May 2019 09:59:49 GMT"
-                    }
-                  ]
-                }
-              }
-            }
+            "headers": {}
           }
-        },
-        "deprecated": false
+        }
+      }
+    },
+    "/auth/signup": {
+      "post": {
+        "description": "A user will have to create an account to be given access",
+        "summary": "localhost:7000/api/v1/auth/signup",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "AuthSignupPost",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object"
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/auth/signin": {
+      "post": {
+        "description": "A user will need to login to access his/her account",
+        "summary": "localhost:7000/api/v1/auth/signin",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "AuthSigninPost",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object"
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/loans/history": {
+      "get": {
+        "description": "A user will view loan history",
+        "summary": "localhost:7000/api/v1/loans/history",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "LoansHistoryGet",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object"
+            },
+            "headers": {}
+          }
+        }
       }
     }
   },
-  "components": {
-    "schemas": {
-      "signupResponse": {
-        "title": "signupResponse",
-        "required": ["data", "status"],
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "data": {
-            "$ref": "#/components/schemas/signupData"
-          }
-        },
-        "example": {
-          "status": 201,
-          "data": {
-            "id": 1,
-            "firstName": "John",
-            "lastName": "Doe",
-            "email": "doejohn@gmail.com",
-            "password": "john.doe",
-            "status": "unverified",
-            "isAdmin": false,
-            "createdOn": "Sat, 11 May 2019 09:59:49 GMT"
-          }
-        }
-      },
-      "signupResponseData": {
-        "title": "signupData",
-        "required": [
-          "id",
-          "firstName",
-          "lastName",
-          "email",
-          "password",
-          "isAdmin",
-          "status",
-          "createdOn"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "firstName": {
-            "type": "string"
-          },
-          "lastName": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "password": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "isAdmin": {
-            "type": "boolean"
-          },
-          "createdOn": {
-            "type": "string"
-          }
-        }
-      },
-      "signinResponse": {
-        "title": "signinResponse",
-        "required": ["data", "status"],
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "data": {
-            "$ref": "#/components/schemas/signupData"
-          }
-        },
-        "example": {
-          "status": 200,
-          "data": {
-            "id": 1,
-            "token": "dhfs8gdgd6d9scx0xz6sd",
-            "firstName": "John",
-            "lastName": "Doe",
-            "email": "doejohn@gmail.com",
-            "password": "john.doe",
-            "status": "unverified",
-            "isAdmin": false,
-            "createdOn": "Sat, 11 May 2019 09:59:49 GMT"
-          }
-        }
-      },
-      "loanApplication": {
-        "title": "loanApplication",
-        "required": ["data", "status"],
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "data": {
-            "$ref": "#/components/schemas/loanApplicationData"
-          }
-        },
-        "example": {
-          "status": 201,
-          "data": {
-            "id": 1,
-            "user": "doe.john@gmail.com",
-            "status": "pending",
-            "tenor": 6,
-            "amount": 2000,
-            "interest": 0.5,
-            "repaid": false,
-            "paymentInstallment": 500,
-            "balance": 1500,
-            "createdOn": "Mon, 29 Apr 2019 14:45:53 GMT"
-          }
-        }
-      },
-      "loanApplicationResponse": {
-        "title": "loanApplicationResponse",
-        "required": [
-          "id",
-          "user",
-          "amount",
-          "balance",
-          "interest",
-          "paymentInstallment",
-          "repaid",
-          "status",
-          "tenor",
-          "createdOn"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "user": {
-            "type": "string"
-          },
-          "createdOn": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "tenor": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "amount": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "interest": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "repaid": {
-            "type": "boolean"
-          },
-          "paymentInstallment": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "balance": {
-            "type": "integer",
-            "format": "int32"
-          }
-        }
-      },
-      "LoanApplications": {
-        "title": "LoanApplications",
-        "required": ["data", "status"],
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "data": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/loanApplicationDetails"
-            }
-          }
-        },
-        "example": {
-          "status": 200,
-          "data": [
-            {
-              "id": 1,
-              "user": "doe.john@gmail.com",
-              "status": "pending",
-              "tenor": 4,
-              "amount": 4000,
-              "interest": 0.5,
-              "repaid": false,
-              "paymentInstallment": 1000,
-              "balance": 4000,
-              "createdOn": "Mon, 29 Apr 2019 14:45:53 GMT"
-            }
-          ]
-        }
-      },
-      "retrieveLoanApplicationsResponse": {
-        "title": "retrieveLoanApplication",
-        "required": ["data", "status"],
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "data": {
-            "$ref": "#/components/schemas/loanApplyResponse"
-          }
-        },
-        "example": {
-          "status": 200,
-          "data": {
-            "id": 1,
-            "user": "manziroger@gmail.com",
-            "status": "pending",
-            "tenor": 6,
-            "amount": 4000,
-            "interest": 0.5,
-            "repaid": false,
-            "paymentInstallment": 400,
-            "balance": 3600,
-            "createdOn": "Mon, 29 Apr 2019 14:45:53 GMT"
-          }
-        }
-      },
-      "verifyUserResponse": {
-        "title": "verifyUserResponse",
-        "required": ["message", "status"],
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "message": {
-            "type": "string"
-          }
-        },
-        "example": {
-          "status": 202,
-          "message": "verified"
-        }
-      },
-      "approveLoanResponse": {
-        "title": "approveLoanResponse",
-        "required": ["message", "status"],
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "message": {
-            "type": "string"
-          }
-        },
-        "example": {
-          "status": 200,
-          "message": "approved"
-        }
-      },
-      "postLoanRepayment": {
-        "title": "postLoanRepayment",
-        "required": ["Created", "data", "status"],
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "Created": {
-            "type": "string"
-          },
-          "data": {
-            "$ref": "#/components/schemas/loanRepayData"
-          }
-        },
-        "example": {
-          "status": 201,
-          "Created": true,
-          "data": {
-            "id": 1,
-            "loanId": 1,
-            "createdOn": "Mon, 29 Apr 2019 15:04:10 GMT",
-            "amount": 4000,
-            "monthlyInstallment": 500,
-            "paidAmount": 700,
-            "balance": 3300
-          }
-        }
-      },
-      "loanRepayTransact": {
-        "title": "loanRepayTransact",
-        "required": [
-          "amount",
-          "balance",
-          "createdOn",
-          "id",
-          "loanId",
-          "monthlyInstallment",
-          "paidAmount"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "loanId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "createdOn": {
-            "type": "string"
-          },
-          "amount": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "monthlyInstallment": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "paidAmount": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "balance": {
-            "type": "integer",
-            "format": "int32"
-          }
-        }
-      },
-      "retrieveSpecificLoan": {
-        "title": "retrieveSpecificLoan",
-        "required": ["data", "status"],
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "data": {
-            "$ref": "#/components/schemas/loanRepayData"
-          }
-        },
-        "example": {
-          "status": 200,
-          "data": {
-            "id": 1,
-            "user": 1,
-            "loanId": 1,
-            "createdOn": "Mon, 29 Apr 2019 15:04:10 GMT",
-            "amount": 4000,
-            "monthlyInstallment": 210,
-            "paidAmount": 1000,
-            "balance": 3000
-          }
-        }
-      },
-      "approvedAndRepaidResponse": {
-        "title": "approvedAndRepaidResponse",
-        "required": ["data", "status"],
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "data": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/loanApplicationResponse"
-            }
-          }
-        },
-        "example": {
-          "status": 200,
-          "data": [
-            {
-              "id": 1,
-              "user": "doe.john@gmail.com",
-              "status": "approved",
-              "tenor": 2,
-              "amount": 4000,
-              "interest": 0.5,
-              "repaid": true,
-              "paymentInstallment": 2000,
-              "balance": 0,
-              "createdOn": "Mon, 29 Apr 2019 14:45:53 GMT"
-            }
-          ]
-        }
-      },
-      "ApprovedAndNotRepaidResponse": {
-        "title": "ApprovedAndNotRepaid",
-        "required": ["data", "status"],
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "data": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ApprovedAndNotRepaid"
-            }
-          }
-        },
-        "example": {
-          "status": 200,
-          "data": [
-            {
-              "id": 1,
-              "user": "doe.john@gmail.com",
-              "status": "approved",
-              "tenor": 6,
-              "amount": 1200,
-              "interest": 60,
-              "repaid": false,
-              "paymentInstallment": 210,
-              "createdOn": "Mon, 29 Apr 2019 14:45:53 GMT"
-            }
-          ]
-        }
-      },
-      "retrieveApprovedAndNotRepaid": {
-        "title": "retrieveApprovedAndNotRepaid",
-        "required": [
-          "amount",
-          "createdOn",
-          "id",
-          "interest",
-          "paymentInstallment",
-          "repaid",
-          "status",
-          "tenor",
-          "user"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32",
-            "example": 1
-          },
-          "user": {
-            "type": "string",
-            "example": "doe.john@gmail.com"
-          },
-          "createdOn": {
-            "type": "string",
-            "example": "Mon, 29 Apr 2019 14:45:53 GMT"
-          },
-          "status": {
-            "type": "string",
-            "example": "approved"
-          },
-          "tenor": {
-            "type": "integer",
-            "format": "int32",
-            "example": 4
-          },
-          "amount": {
-            "type": "integer",
-            "format": "int32",
-            "example": 4000
-          },
-          "interest": {
-            "type": "integer",
-            "format": "int32",
-            "example": 0.5
-          },
-          "repaid": {
-            "type": "boolean",
-            "example": false
-          },
-          "paymentInstallment": {
-            "type": "integer",
-            "format": "int32",
-            "example": 2000
-          }
-        }
-      },
-      "AllUsersResponse": {
-        "title": "AllUsersResponse",
-        "required": ["data", "status"],
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "data": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/signupResponse"
-            }
-          }
-        },
-        "example": {
-          "status": 200,
-          "data": [
-            {
-              "id": 1,
-              "token": "adhs78gdg3css4sfsgf",
-              "firstName": "Doe",
-              "lastName": "John",
-              "email": "doe.johon@gmail.com",
-              "password": "doe.john",
-              "status": "verified",
-              "isAdmin": false,
-              "createdOn": "Sat, 11 May 2019 09:59:49 GMT"
-            }
-          ]
-        }
-      },
-      "signupBody": {
-        "required": ["email", "firstName", "lastName", "password"],
-        "type": "object",
-        "properties": {
-          "firstName": {
-            "type": "string",
-            "example": "John"
-          },
-          "lastName": {
-            "type": "string",
-            "example": "Doe"
-          },
-          "email": {
-            "type": "string",
-            "example": "doe.john@gmail.com"
-          },
-          "password": {
-            "type": "string",
-            "example": "Kigali 79"
-          }
-        }
-      },
-      "signinBody": {
-        "required": ["email", "password"],
-        "type": "object",
-        "properties": {
-          "email": {
-            "type": "string",
-            "example": "john.doe@gmail.com"
-          },
-          "password": {
-            "type": "string",
-            "example": "doe.john"
-          }
-        }
-      },
-      "loanApplicationBody": {
-        "required": ["amount", "tenor"],
-        "type": "object",
-        "properties": {
-          "tenor": {
-            "type": "string",
-            "example": "4"
-          },
-          "amount": {
-            "type": "string",
-            "example": "4000"
-          }
-        }
-      },
-      "approveLoanBody": {
-        "required": ["status"],
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "string",
-            "example": "approved"
-          }
-        }
-      },
-      "postLoanRepaymentTransact": {
-        "required": ["amount"],
-        "type": "object",
-        "properties": {
-          "amount": {
-            "type": "string",
-            "example": "3400"
-          }
-        }
-      }
+  "tags": [
+    {
+      "name": "Misc",
+      "description": ""
     }
-  }
+  ]
 }
